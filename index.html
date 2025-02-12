@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Naydeli 💖</title>
+    <style>
+        body {
+            background-color: #ffc0cb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+        .hidden { display: none; }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+            border: 3px solid red;
+        }
+        .heart {
+            position: absolute;
+            font-size: 30px;
+            animation: float 5s infinite ease-in-out;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+        .button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            margin: 10px;
+        }
+        .yes { background: green; color: white; }
+        .no { background: gray; color: white; position: absolute; }
+        .envelope { cursor: pointer; }
+        .heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-container" id="heartContainer"></div>
+    <h1 style="border: 3px solid red; padding: 10px; border-radius: 10px;">Para Naydeli 💖</h1>
+    <button id="startButton" class="button">Soy Naydeli</button>
+    
+    <div id="valentineCard" class="card hidden">
+        <h2>¿Quieres ser mi San Valentín? 💕</h2>
+        <button class="button yes" onclick="showEnvelope()">Sí 💖</button>
+        <button id="noButton" class="button no">No 💔</button>
+    </div>
+    
+    <div id="envelope" class="hidden" onclick="openLetter()">
+        <h2 class="envelope">📩 Abrir la carta</h2>
+    </div>
+    
+    <div id="letter" class="card hidden">
+        <h2>Perfecto, elegiste la mejor opción Naydeli! 💖</h2>
+        <p>No olvides la fecha: 14 de Febrero a las 6pm</p>
+    </div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', function() {
+            document.getElementById('valentineCard').classList.remove('hidden');
+            this.classList.add('hidden');
+            generateHearts();
+        });
+        
+        function showEnvelope() {
+            document.getElementById('valentineCard').classList.add('hidden');
+            document.getElementById('envelope').classList.remove('hidden');
+        }
+        
+        function openLetter() {
+            document.getElementById('envelope').classList.add('hidden');
+            document.getElementById('letter').classList.remove('hidden');
+        }
+        
+        document.getElementById('noButton').addEventListener('mouseenter', function() {
+            this.style.top = Math.random() * (window.innerHeight - 50) + 'px';
+            this.style.left = Math.random() * (window.innerWidth - 100) + 'px';
+        });
+        
+        function generateHearts() {
+            const heartTypes = ['❤️', '💖', '💕', '💞', '💓', '💗', '💘'];
+            const heartContainer = document.getElementById('heartContainer');
+            for (let i = 0; i < 30; i++) {
+                let heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.innerText = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heartContainer.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
